@@ -69,7 +69,12 @@ Alternatives considered:
 
 ### 5. Target IntelliJ IDEA first and verify compatibility as a release gate
 
-The Gradle project will target a current stable IntelliJ IDEA Community platform baseline chosen during implementation, declare Linux/Omarchy support in its documentation, and test its plugin artifact with the IntelliJ Plugin Verifier against that baseline and the current supported IntelliJ IDEA release. It will avoid product-specific APIs so expansion to other JetBrains IDEs remains possible after compatibility testing.
+The Gradle project targets the current unified IntelliJ IDEA 2026.2 platform
+baseline (the separate Community distribution was retired after 2025.3),
+declares Linux/Omarchy support in its documentation, and tests its plugin
+artifact with the IntelliJ Plugin Verifier against that baseline. It avoids
+product-specific APIs so expansion to other JetBrains IDEs remains possible
+after compatibility testing.
 
 Alternatives considered:
 

@@ -1,0 +1,54 @@
+<idea-plugin>
+  <id>org.omarchy.theme-sync</id>
+  <name>Omarchy Theme Sync</name>
+  <vendor url="https://omarchy.org">Omarchy Community</vendor>
+
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationService serviceImplementation="org.omarchy.theme.sync.settings.ThemeSyncSettings"/>
+    <applicationService serviceImplementation="org.omarchy.theme.sync.OmarchyThemeSyncService"/>
+    <notificationGroup id="Omarchy Theme Sync" displayType="BALLOON" isLogByDefault="true"/>
+    <applicationConfigurable
+        parentId="appearance"
+        id="org.omarchy.theme-sync.settings"
+        displayName="Omarchy Theme Sync"
+        instance="org.omarchy.theme.sync.settings.OmarchyThemeConfigurable"/>
+    <statusBarWidgetFactory
+        id="org.omarchy.theme-sync.status"
+        implementation="org.omarchy.theme.sync.status.ThemeSyncStatusBarWidgetFactory"/>
+  </extensions>
+
+  <applicationListeners>
+    <listener class="org.omarchy.theme.sync.startup.ThemeSyncLifecycleListener"
+              topic="com.intellij.ide.AppLifecycleListener"
+              activeInHeadlessMode="false"/>
+  </applicationListeners>
+
+  <actions>
+    <action id="org.omarchy.theme-sync.enable"
+            class="org.omarchy.theme.sync.actions.EnableSynchronizationAction"
+            text="Enable Omarchy Theme Synchronization"
+            description="Enable automatic Omarchy palette synchronization">
+      <add-to-group group-id="ToolsMenu" anchor="last"/>
+    </action>
+    <action id="org.omarchy.theme-sync.pause"
+            class="org.omarchy.theme.sync.actions.PauseSynchronizationAction"
+            text="Pause Omarchy Theme Synchronization"
+            description="Pause automatic Omarchy palette synchronization">
+      <add-to-group group-id="ToolsMenu" anchor="last"/>
+    </action>
+    <action id="org.omarchy.theme-sync.apply"
+            class="org.omarchy.theme.sync.actions.ApplyCurrentThemeAction"
+            text="Apply Current Omarchy Theme"
+            description="Apply the current Omarchy palette once">
+      <add-to-group group-id="ToolsMenu" anchor="last"/>
+    </action>
+    <action id="org.omarchy.theme-sync.restore"
+            class="org.omarchy.theme.sync.actions.RestorePreviousAppearanceAction"
+            text="Restore Previous Appearance"
+            description="Restore the appearance active before Omarchy synchronization">
+      <add-to-group group-id="ToolsMenu" anchor="last"/>
+    </action>
+  </actions>
+</idea-plugin>
