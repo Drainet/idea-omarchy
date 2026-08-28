@@ -9,6 +9,8 @@ plugins {
 group = "org.omarchy"
 version = "0.1.0-SNAPSHOT"
 
+val intellijPlatformVersion = providers.gradleProperty("intellijPlatformVersion").get()
+
 kotlin {
     jvmToolchain(25)
     compilerOptions {
@@ -21,7 +23,7 @@ dependencies {
     implementation("org.tomlj:tomlj:1.1.1")
 
     intellijPlatform {
-        local(file("/home/drain/jetbrains/idea-IU-262.9437.185"))
+        intellijIdea(intellijPlatformVersion)
         pluginVerifier()
     }
 
@@ -45,7 +47,7 @@ intellijPlatform {
 
     pluginVerification {
         ides {
-            local(file("/home/drain/jetbrains/idea-IU-262.9437.185"))
+            current()
         }
     }
 }

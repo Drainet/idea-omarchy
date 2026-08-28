@@ -11,12 +11,13 @@ The initial baseline is IntelliJ IDEA 2026.2 (build 262) on Linux, built with
 Java 25 and Gradle 9. IntelliJ IDEA has used the unified distribution since
 2025.3, so the project targets unified IDEA rather than the retired
 Community-only artifact. Development and verification use IDEA 2026.2.1
-(build `IU-262.9437.185`).
+(build 262), which Gradle downloads from JetBrains when needed.
 
 ## Build
 
 ```sh
-export JAVA_HOME=/path/to/idea/jbr # Java 25
+# Gradle uses any available Java 17+ runtime and downloads the required JDK 25.
+# An IntelliJ installation is not required.
 ./gradlew test
 ./gradlew buildPlugin
 ```
