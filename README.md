@@ -1,22 +1,24 @@
 # Omarchy Theme Sync
 
-An IntelliJ IDEA plugin that keeps the IDE UI and editor scheme aligned with the
-active Omarchy palette. It reads only the local Omarchy state file at
+An IntelliJ Platform plugin that keeps Android Studio and IntelliJ IDEA UI and
+editor schemes aligned with the active Omarchy palette. It reads only the local
+Omarchy state file at
 `~/.local/state/omarchy/current/theme/colors.toml`; it never runs Omarchy
 commands, changes system configuration, or sends theme data over the network.
 
 ## Development baseline
 
-The initial baseline is IntelliJ IDEA 2026.2 (build 262) on Linux, built with
-Java 25 and Gradle 9. IntelliJ IDEA has used the unified distribution since
-2025.3, so the project targets unified IDEA rather than the retired
-Community-only artifact. Development and verification use IDEA 2026.2.1
-(build 262), which Gradle downloads from JetBrains when needed.
+The compatibility baseline is Android Studio 2026.1.4 (build 261) on Linux,
+which runs on Java 21. The plugin is compiled against that baseline and is also
+verified against IntelliJ IDEA 2026.2.1 (build 262). It uses only the shared
+`com.intellij.modules.platform` APIs, so it does not require Android-specific
+APIs or change its behavior between the two IDEs. Gradle downloads both target
+platforms when needed; a local installation is not required to build.
 
 ## Build
 
 ```sh
-# Gradle uses any available Java 17+ runtime and downloads the required JDK 25.
+# Gradle uses any available Java 17+ runtime and downloads the required JDK 21.
 # An IntelliJ installation is not required.
 ./gradlew test
 ./gradlew buildPlugin
@@ -26,8 +28,9 @@ The resulting plugin ZIP is written under `build/distributions/`.
 
 ## Installation and rollback
 
-Install the ZIP in **Settings | Plugins | Install Plugin from Disk**. Configure
-the palette source in **Settings | Appearance & Behavior | Omarchy Theme Sync**.
+Install the ZIP in Android Studio or IntelliJ IDEA through **Settings | Plugins |
+Install Plugin from Disk**. Configure the palette source in **Settings |
+Appearance & Behavior | Omarchy Theme Sync**.
 Use **Tools | Restore Previous Appearance** to immediately return to the UI
 theme and editor scheme that were active before synchronization. Disabling or
 uninstalling the plugin also stops monitoring; if a saved theme no longer
@@ -58,10 +61,11 @@ The automated suite covers dark and light fixtures, malformed or missing
 palette input, RGB/RGBA and contrast handling, normalized content hashing,
 unchanged-file suppression, and replacement of a watched theme directory.
 
-The 2026.2.1 sandbox smoke test loaded the plugin at startup, read the active
+Run `./gradlew verifyPlugin` before installing a build. It verifies the packaged
+plugin against Android Studio 2026.1.4 and IntelliJ IDEA 2026.2.1. The
+2026.2.1 sandbox smoke test loaded the plugin at startup, read the active
 Omarchy palette, and persisted its fingerprint with the generated **Omarchy
-System** editor scheme selected. Plugin Verifier reports the packaged plugin
-as compatible with `IU-262.9437.185`.
+System** editor scheme selected.
 
 Before publishing beyond this local baseline, manually check a live sandbox
 for dark-to-light and light-to-dark changes, manual IDE theme selection,
